@@ -1,0 +1,33 @@
+{
+    "name": "a3gz/php-dom-parser",
+    "type": "library",
+    "description": "",
+    "keywords": ["html", "dom", "parser"],
+    "homepage": "https://github.com/a3gz/php-dom-parser",
+    "license": "MIT",
+    "authors": [
+        {   
+            "name": "S.C. Chen",
+            "homepage": "http://sourceforge.net/projects/simplehtmldom/"
+        },
+        {
+            "name": "Sunra",
+            "email": "sunra@yandex.ru",
+            "homepage": "https://github.com/sunra"
+        },
+        {
+            "name": "Alejandro Arbiza",
+            "email": "alejandro@roetal.com",
+            "homepage": "https://www.roetal.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": { 
+            "A3gZ\\PhpDomParser\\": "src"
+        }
+    }    
+}
