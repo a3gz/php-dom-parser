@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Website: http://sourceforge.net/projects/simplehtmldom/
  * Acknowledge: Jose Solorzano (https://sourceforge.net/projects/php-html/)
@@ -37,6 +38,7 @@
  * @package PlaceLocalInclude
  * @subpackage simple_html_dom
  */
+
 namespace A3gZ\PhpDomParser;
 
 /**
@@ -59,37 +61,31 @@ define('HDOM_INFO_SPACE',   3);
 define('HDOM_INFO_TEXT',    4);
 define('HDOM_INFO_INNER',   5);
 define('HDOM_INFO_OUTER',   6);
-define('HDOM_INFO_ENDSPACE',7);
+define('HDOM_INFO_ENDSPACE', 7);
 define('DEFAULT_TARGET_CHARSET', 'UTF-8');
 define('DEFAULT_BR_TEXT', "\r\n");
 define('DEFAULT_SPAN_TEXT', " ");
 defined('HTML_DOM_PARSER_MAX_FILE_SIZE') || define('HTML_DOM_PARSER_MAX_FILE_SIZE', 2000000);
 
 
-class HtmlDomParser 
-{
-	
-    /**
-     *
-     */
-    static public function fromFile( $url, $params = [] ) 
-    {
+class HtmlDomParser {
+    static public function fromFile($url, $params = []) {
         $defaults = [
-            'use_include_path' => false, 
-            'context' => null, 
-            'offset' => -1, 
-            'maxLen' => -1, 
-            'lowercase' => true, 
-            'forceTagsClosed' => true, 
-            'target_charset' => DEFAULT_TARGET_CHARSET, 
-            'stripRN' => false, 
-            'defaultBRText' => DEFAULT_BR_TEXT, 
+            'use_include_path' => false,
+            'context' => null,
+            'offset' => -1,
+            'maxLen' => -1,
+            'lowercase' => true,
+            'forceTagsClosed' => true,
+            'target_charset' => DEFAULT_TARGET_CHARSET,
+            'stripRN' => false,
+            'defaultBRText' => DEFAULT_BR_TEXT,
             'defaultSpanText' => DEFAULT_SPAN_TEXT
         ];
-        
-        $settings = array_merge( $defaults, $params );
-        extract( $settings );
-        
+
+        $settings = array_merge($defaults, $params);
+        extract($settings);
+
         // We DO force the tags to be terminated.
         $dom = new DomDocument([
             'str' => null,
@@ -100,38 +96,32 @@ class HtmlDomParser
             'defaultBRText' => $defaultBRText,
             'defaultSpanText' => $defaultSpanText
         ]);
-        
+
         // For sourceforge users: uncomment the next line and comment the retreive_url_contents line 2 lines down if it is not already done.
         $contents = file_get_contents($url, $use_include_path, $context, $offset);
         // Paperg - use our own mechanism for getting the contents as we want to control the timeout.
         //$contents = retrieve_url_contents($url);
-        if (empty($contents) || strlen($contents) > HTML_DOM_PARSER_MAX_FILE_SIZE)
-        {
+        if (empty($contents) || strlen($contents) > HTML_DOM_PARSER_MAX_FILE_SIZE) {
             return false;
         }
         // The second parameter can force the selectors to all be lowercase.
         $dom->load($contents, $lowercase, $stripRN);
         return $dom;
-    } // fromFile()
-    
+    }
 
-    /**
-     * get html dom from string
-     */
-    static public function fromString( $str, $params = [] ) 
-    {
+    static public function fromString($str, $params = []) {
         $defaults = [
-            'lowercase' => true, 
-            'forceTagsClosed' => true, 
-            'target_charset' => DEFAULT_TARGET_CHARSET, 
-            'stripRN' => false, 
-            'defaultBRText' => DEFAULT_BR_TEXT, 
-            'defaultSpanText' => DEFAULT_SPAN_TEXT        
+            'lowercase' => true,
+            'forceTagsClosed' => true,
+            'target_charset' => DEFAULT_TARGET_CHARSET,
+            'stripRN' => false,
+            'defaultBRText' => DEFAULT_BR_TEXT,
+            'defaultSpanText' => DEFAULT_SPAN_TEXT
         ];
-        
-        $settings = array_merge( $defaults, $params );
-        extract( $settings );
-        
+
+        $settings = array_merge($defaults, $params);
+        extract($settings);
+
         $dom = new DomDocument([
             'str' => null,
             'lowercase' => $lowercase,
@@ -141,26 +131,18 @@ class HtmlDomParser
             'defaultBRText' => $defaultBRText,
             'defaultSpanText' => $defaultSpanText
         ]);
-        
-        if (empty($str) || strlen($str) > HTML_DOM_PARSER_MAX_FILE_SIZE)
-        {
+
+        if (empty($str) || strlen($str) > HTML_DOM_PARSER_MAX_FILE_SIZE) {
             $dom->clear();
             return false;
         }
         $dom->load($str, $lowercase, $stripRN);
         return $dom;
-        
-	} // fromString()
+    }
 
-    
-    /**
-     *
-     */
-    public static function dumpHtmlTree( $node, $show_attr=true, $deep=0 )
-    {
+    public static function dumpHtmlTree($node, $show_attr = true, $deep = 0) {
         $node->dump($node);
-    } // dumpHtmlTree()
-    
-} // class 
+    }
+} // class
 
 // EOF
